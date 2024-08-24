@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        font-weight: normal;
+      }
+      th {
+        background-color: #2aa0c4; /* Warna biru pada header */
+        color: #fff;
+      }
+      tfoot tr {
+        background-color: #2aa0c4; /* Warna biru pada footer */
+        color: #fff;
+      }
+      tbody tr {
+        background-color: transparent; /* Baris di tbody tidak memiliki background */
+      }
+      .results-container {
+        width: 80%;
+        margin: 20px auto;
+        position: relative;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #333;
+      }
+      .company-name {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+      }
+      .no-results {
+        text-align: center;
+        font-style: italic;
+        margin-top: 20px;
+      }
+      .gpm-result {
+        text-align: right;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .marketing-name {
+        text-align: left;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #00b9a3;
+        color: #000000;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .back-button:hover {
+        background-color: #008b8b;
+      }
+      .pdf-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px 20px;
+        background-color: #ff9800;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .pdf-button:hover {
+        background-color: #e68900;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="results-container" id="results-container">
+      <button class="pdf-button" id="generate-pdf">Generate PDF</button>
+      <h2>Jobsheet Data</h2>
+      <p class="company-name" id="company-name"></p>
+      <!-- Display Nama Perusahaan -->
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Nama Limbah</th>
+            <th>Satuan</th>
+            <th>Jumlah</th>
+            <th>Harga Satuan</th>
+            <th>Total Harga Klien</th>
+            <th>Biaya</th>
+            <th>Total Biaya</th>
+            <th>Pengolahan & Armada</th>
+            <th>Estimasi Profit</th>
+          </tr>
+        </thead>
+        <tbody id="results"></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="1">Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="total-client-price-sum">Rp 0</td>
+            <td></td>
+            <td id="total-cost-sum">Rp 0</td>
+            <td></td>
+            <td id="total-profit-estimation-sum">Rp 0</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p class="no-results" id="no-results">
+        No jobsheets have been submitted yet.
+      </p>
+      <p class="gpm-result" id="gpm-result">GPM: 0%</p>
+      <p class="marketing-name" id="marketing-name"></p>
+      <!-- Display Nama Marketing -->
+      <a href="jobsheet.html" class="back-button">Back to Form</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const resultsContainer = document.getElementById("results");
+        const noResultsMessage = document.getElementById("no-results");
+        const totalClientPriceSumEl = document.getElementById(
+          "total-client-price-sum"
+        );
+        const totalCostSumEl = document.getElementById("total-cost-sum");
+        const totalProfitEstimationSumEl = document.getElementById(
+          "total-profit-estimation-sum"
+        );
+        const gpmResultEl = document.getElementById("gpm-result");
+        const companyNameEl = document.getElementById("company-name");
+        const marketingNameEl = document.getElementById("marketing-name");
+
+        let jobsheetData = JSON.parse(localStorage.getItem("jobsheetData"));
+
+        // Ensure jobsheetData is an array
+        if (!Array.isArray(jobsheetData)) {
+          jobsheetData = [];
+        }
+
+        let totalClientPriceSum = 0;
+        let totalCostSum = 0;
+        let totalProfitEstimationSum = 0;
+
+        if (jobsheetData.length === 0) {
+          noResultsMessage.style.display = "block";
+        } else {
+          noResultsMessage.style.display = "none";
+
+          // Assume that company name and marketing name are the same for all entries
+          if (jobsheetData[0]) {
+            companyNameEl.textContent = `Nama Perusahaan: ${jobsheetData[0].companyName}`;
+            marketingNameEl.textContent = `Nama Marketing: ${jobsheetData[0].marketingName}`;
+          }
+
+          jobsheetData.forEach((data, index) => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${data.wasteName}</td>
+                <td>${data.unit}</td>
+                <td>${data.quantity}</td>
+                <td>${data.unitPrice}</td>
+                <td>${data.totalClientPrice}</td>
+                <td>${data.cost}</td>
+                <td>${data.totalCost}</td>
+                <td>${data.Armada}</td>
+                <td>${data.profitEstimation}</td>
+            `;
+
+            resultsContainer.appendChild(row);
+
+            // Update totals for calculated columns with error handling
+            const totalClientPrice =
+              parseFloat(
+                (data.totalClientPrice || "").replace(/[^0-9.-]+/g, "")
+              ) || 0;
+            const totalCost =
+              parseFloat((data.totalCost || "").replace(/[^0-9.-]+/g, "")) || 0;
+            const profitEstimation =
+              parseFloat(
+                (data.profitEstimation || "").replace(/[^0-9.-]+/g, "")
+              ) || 0;
+
+            totalClientPriceSum += totalClientPrice;
+            totalCostSum += totalCost;
+            totalProfitEstimationSum += profitEstimation;
+          });
+
+          // Display sum totals
+          totalClientPriceSumEl.textContent = `Rp ${totalClientPriceSum.toLocaleString(
+            "id-ID"
+          )}`;
+          totalCostSumEl.textContent = `Rp ${totalCostSum.toLocaleString(
+            "id-ID"
+          )}`;
+          totalProfitEstimationSumEl.textContent = `Rp ${totalProfitEstimationSum.toLocaleString(
+            "id-ID"
+          )}`;
+
+          // Calculate and display GPM
+          const gpm = totalClientPriceSum
+            ? ((totalProfitEstimationSum / totalClientPriceSum) * 100).toFixed(
+                2
+              )
+            : 0;
+          gpmResultEl.textContent = `GPM: ${gpm}%`;
+        }
+
+        // Function to generate PDF in landscape orientation
+        document
+          .getElementById("generate-pdf")
+          .addEventListener("click", () => {
+            const element = document.getElementById("results-container");
+
+            // Hide buttons before generating PDF
+            const generatePdfButton = document.getElementById("generate-pdf");
+            const backButton = document.querySelector(".back-button");
+            generatePdfButton.style.display = "none";
+            backButton.style.display = "none";
+
+            // Generate PDF
+            html2pdf()
+              .from(element)
+              .set({
+                margin: 1,
+                filename: "jobsheet_data.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: "in", format: "a4", orientation: "landscape" },
+              })
+              .save()
+              .then(() => {
+                // Show buttons again after PDF is created
+                generatePdfButton.style.display = "block";
+                backButton.style.display = "block";
+              });
+          });
+      });
+    </script>
+  </body>
+</html>

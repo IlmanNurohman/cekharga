@@ -1,0 +1,443 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  background: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+#landing-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 10;
+}
+
+#landing-image {
+  width: 300px;
+  animation: zoomIn 2s ease-in-out forwards;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("img/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent, #00b894);
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: -25px;
+  font-size: 30px;
+  position: relative;
+}
+
+.header-container .main-image {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: -35px;
+}
+.header-container h2 {
+  color: #fff; /* Set the font color to white */
+}
+
+.logo-container {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+  margin-left: 70px;
+  position: relative;
+}
+
+.search-box input[type="text"] {
+  flex: 1;
+  padding: 20px 15px 20px 40px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 18px;
+  outline: none;
+}
+
+.search-box input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search-box button {
+  padding: 15px 20px;
+  border: none;
+  background-color: #00b9a3;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: -10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box i {
+  position: absolute;
+  left: 15px;
+  top: 40%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.856);
+  pointer-events: none;
+}
+
+.results-container {
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  display: none;
+  margin-left: 50px;
+}
+
+.results {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 10px;
+  color: black;
+  width: 96%;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  margin-left: 20px;
+}
+
+.results ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.results ul li {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.results ul li:last-child {
+  border-bottom: none;
+}
+
+.results ul li span {
+  font-weight: bold;
+  color: #333;
+}
+
+.results ul li input[type="checkbox"] {
+  accent-color: #63a365;
+}
+
+.results ul li:hover {
+  background-color: #f1f1f1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  text-align: left;
+  background-color: #f9f9f9;
+}
+
+td {
+  text-align: left;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+#kotor-banget-img {
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  right: -150px;
+  max-width: 200px;
+  height: auto;
+  z-index: 5;
+}
+
+/* Style untuk box yang menampung hasil pencarian nama limbah yang dipilih */
+.selected-waste-container {
+  width: 65%;
+  max-width: 500px;
+  margin-left: 70px;
+  margin-bottom: 10px;
+}
+
+#selected-waste {
+  color: #000;
+}
+
+/* Style untuk button jobsheet */
+#create-jobsheet-button {
+  padding: 15px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  max-width: 500px;
+}
+
+#create-jobsheet-button:hover {
+  background-color: #0056b3;
+}
+
+/* style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #4b2525;
+  background: url("img/bg.jpg") no-repeat center center fixed;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center; /* Center content inside form container */
+}
+
+.form-logo {
+  max-width: 150px; /* Adjust the size of the logo */
+  margin-bottom: -50px; /* Space between logo and the title */
+  margin-top: -90px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #555;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[readonly] {
+  background-color: #f9f9f9;
+}
+
+button[type="submit"] {
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-left: auto; /* Automatically adjust the left margin */
+  margin-right: auto; /* Automatically adjust the right margin */
+  display: block; /* Ensures that the button takes up the full width */
+  width: 50%; /* Adjust the width of the button if needed */
+  text-align: center; /* Center the text inside the button */
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+#view-results-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+#view-results-link:hover {
+  text-decoration: underline;
+}
+
+#success-message {
+  text-align: center;
+  margin-top: 20px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.suggestions div {
+  padding: 10px;
+  cursor: pointer;
+  color: #000;
+}
+
+.suggestions div:hover {
+  background-color: #f0f0f0;
+}
+
+.accordion-header {
+  cursor: pointer;
+  padding: 5px;
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.accordion-header.active {
+  background-color: #0056b3;
+}
+
+.panel {
+  display: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.panel.active {
+  display: block;
+}
+
+table_wate {
+  width: 100%;
+}
+
+tr_acording {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+td_acording {
+  margin-bottom: 5px; /* Space between label and input */
+}
+
+table td:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+table td input,
+table td select {
+  width: 100%; /* Ensure the input field takes up full width */
+  padding: 8px;
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}

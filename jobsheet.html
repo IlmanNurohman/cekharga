@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Jobsheet</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <img src="img/PITUKU11.png" alt="Logo" class="form-logo" />
+      <h2>Cari Limbah</h2>
+
+      <form id="jobsheet-form" autocomplete="off">
+        <!-- Fields outside accordion -->
+        <div>
+          <label for="company-name">Nama Perusahaan:</label>
+          <input
+            type="text"
+            id="company-name"
+            name="companyName"
+            placeholder="Masukkan Nama Perusahaan"
+            autocomplete="off"
+            required
+          />
+
+          <label for="marketing-name">Nama Marketing:</label>
+          <input
+            type="text"
+            id="marketing-name"
+            name="marketingName"
+            placeholder="Masukkan Nama Marketing"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div style="position: relative">
+          <input
+            type="text"
+            id="waste-search"
+            name="wasteSearch"
+            placeholder="Masukkan Nama atau Jenis Limbah"
+            autocomplete="off"
+          />
+          <div id="suggestions" class="suggestions" style="display: none"></div>
+        </div>
+
+        <div
+          id="selected-wastes"
+          class="selected-wastes"
+          style="display: none"
+        ></div>
+
+        <!-- Accordion for waste data -->
+        <div id="accordion-container"></div>
+
+        <!-- Submit and result buttons outside accordion -->
+        <button type="submit">Submit</button>
+        <a href="results.html" id="view-results-link">Lihat Hasil</a>
+      </form>
+
+      <div id="success-message" style="display: none">
+        Data berhasil disubmit!
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
