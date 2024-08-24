@@ -153,6 +153,7 @@
         const marketingNameEl = document.getElementById("marketing-name");
 
         let jobsheetData = JSON.parse(localStorage.getItem("jobsheetData"));
+        console.log(jobsheetData)
 
         // Ensure jobsheetData is an array
         if (!Array.isArray(jobsheetData)) {
@@ -162,7 +163,6 @@
         let totalClientPriceSum = 0;
         let totalCostSum = 0;
         let totalProfitEstimationSum = 0;
-
         if (jobsheetData.length === 0) {
           noResultsMessage.style.display = "block";
         } else {
@@ -174,7 +174,7 @@
             marketingNameEl.textContent = `Nama Marketing: ${jobsheetData[0].marketingName}`;
           }
 
-          jobsheetData.forEach((data, index) => {
+          jobsheetData[0]['wastes'].forEach((data, index) => {
             const row = document.createElement("tr");
 
             row.innerHTML = `
@@ -185,7 +185,7 @@
                 <td>${data.totalClientPrice}</td>
                 <td>${data.cost}</td>
                 <td>${data.totalCost}</td>
-                <td>${data.Armada}</td>
+                <td>${data.fleetProcessing}</td>
                 <td>${data.profitEstimation}</td>
             `;
 

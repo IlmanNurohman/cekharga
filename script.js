@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       div.style.alignItems = "center";
 
       const label = document.createElement("span");
-      label.textContent = `${suggestion.waste_name} (${suggestion.unit})`;
+      label.textContent = `${suggestion.waste_name} (${suggestion.waste_code})`;
       div.appendChild(label);
 
       const checkbox = document.createElement("input");
@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Create the accordion header
       const accordionHeader = document.createElement("h3");
-      accordionHeader.textContent = `${waste.waste_name} (${waste.unit})`;
+      accordionHeader.textContent = `${waste.waste_name} (${waste.waste_code})`;
       accordionHeader.className = "accordion-header";
       accordionSection.appendChild(accordionHeader);
 
       // Create the accordion panel
       const panel = document.createElement("div");
       panel.className = "panel";
-
+      console.log(waste)
       // Add form fields to the panel
       const table = document.createElement("table_wate");
       table.innerHTML = `
