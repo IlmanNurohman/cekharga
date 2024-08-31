@@ -33,6 +33,8 @@ let selectedWastes = [];
 
 async function search() {
   const input = document.getElementById("search-input").value;
+  const table = document.getElementById("table-result");
+  const select = document.querySelector('.selected-waste-container');
   const resultsContainer = document.querySelector(".results-container");
   const results = document.getElementById("results");
   const createJobsheetButton = document.getElementById(
@@ -40,6 +42,8 @@ async function search() {
   );
 
   if (input.trim() === "") {
+    table.style.display = 'none';
+    select.style.display = 'none';
     results.innerHTML = "";
     resultsContainer.style.display = "none";
     createJobsheetButton.style.display = "block";
@@ -191,7 +195,7 @@ function displaySelectedResults() {
   }
 
   let tableHTML = `
-        <table style="width: 100%; border-collapse: collapse;">
+        <table id='table-result' style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr>
                     <th style="text-align: left; padding: 10px; border-bottom: 1px solid #ccc;">Nama Limbah</th>
