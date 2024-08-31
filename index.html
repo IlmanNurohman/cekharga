@@ -9,13 +9,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <div id="landing-page">
       <img
-        src="img/Nyampah Berkah.png "
+        src="img/Nyampah Berkah.png"
         alt="Landing Image"
         id="landing-image"
       />
@@ -48,9 +53,10 @@
         <button id="search-button">Cari</button>
       </div>
 
-      <div class="button-container">
-        <button id="create-jobsheet-button">Buat Jobsheet</button>
-      </div>
+      <button id="create-jobsheet-button">
+        <i class="fas fa-file-alt"></i>
+        Create Jobsheet
+      </button>
 
       <div class="results-container">
         <div class="results" id="results">
@@ -64,7 +70,25 @@
         />
       </div>
     </div>
+    <!-- Custom Alert Modal -->
+    <!-- Modal untuk memasukkan password -->
+    <div id="password-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <img src="img/Group 16.png" alt="Tunggu" class="modal-image" />
+        <h2>Raih Akses dengan Password</h2>
+        <label for="password-input">Password:</label>
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Masukkan password"
+        />
+        <button id="submit-password">Masuk</button>
+      </div>
+    </div>
+    <div id="error-image" style="display: none">
+      <img src="img/pw salah.jpg" alt="Login Gagal" style="width: 100px" />
+    </div>
 
-    <script src="app.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
